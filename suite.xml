@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DOCTYPE suite SYSTEM "file:///C:/Users/nagar/Desktop/Assignment/testng-1.0.dtd"> -->
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="CapstoneOrangeHrm.TestLogin"/>
+    <!--  <class name="CapstoneOrangeHrm.login"/>
+      <class name="CapstoneOrangeHrm.AdminModuletestClass_01"/>
+      <class name="CapstoneOrangeHrm.LoginModuletestClass_01"/> -->
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
