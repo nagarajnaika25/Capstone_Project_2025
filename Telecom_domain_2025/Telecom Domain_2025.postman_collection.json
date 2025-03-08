@@ -1,0 +1,558 @@
+{
+	"info": {
+		"_postman_id": "49dcbcbb-3e2e-4d13-abca-1af0bd206e7d",
+		"name": "Telecom Domain_2025",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40616058"
+	},
+	"item": [
+		{
+			"name": "Add_newuser_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for status code should be 201",
+							"pm.test(\"Test for status code should be 201\", () => {",
+							"    pm.expect(pm.response.code).to.eql(201);",
+							"});",
+							"",
+							"// Get JSON Response",
+							"let jsonData = pm.response.json();",
+							"console.log(\"Response Body:\", jsonData);",
+							"",
+							"// Test for first name",
+							"pm.test(\"Test for first name should be Nagaraj\", () => {",
+							"    pm.expect(jsonData.user.firstName).to.eql(\"Nagaraj\");",
+							"});",
+							"",
+							"// Test for last name",
+							"pm.test(\"Test for last name should be M Naik\", () => {",
+							"    pm.expect(jsonData.user.lastName).to.eql(\"M Naik\");",
+							"});",
+							"",
+							"// Test for email",
+							"pm.test(\"Test for email should be nagaraj.unique25@example.com\", () => {",
+							"    pm.expect(jsonData.user.email).to.eql(\"nagaraj.unique2026@example.com\");",
+							"});",
+							"",
+							"// Set environment variables if user_id and token exist",
+							"if (jsonData.user && jsonData.user._id && jsonData.token) {",
+							"    pm.environment.set(\"user_id\", jsonData.user._id);",
+							"    pm.environment.set(\"btoken\", jsonData.token);",
+							"    console.log(\"user_id & token set successfully\");",
+							"} else {",
+							"    console.log(\"Error: user_id or token is missing in response\");",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Nagaraj\",\n    \"lastName\": \"M Naik\",\n    \"email\": \"nagaraj.unique2026@example.com\",\n    \"password\": \"NagarajNaik@2025\"\n}"
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_NewUser_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed response object access",
+							"pm.test(\"Test for status code should be 200\", () => {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"let response = pm.response.json();",
+							"pm.environment.set(\"user_id\", response._id);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{btoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/users/me",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put_NewUser_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test for status code should be 200\", () => {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{btoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Nagaraj\",\n    \"lastName\": \"M Naik Updated\",\n    \"email\": \"nagaraj.unique2026@example.com\",\n    \"password\": \"NagarajNaik@2025\"\n}"
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/users/me",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log_InUser_04",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"pm.test(\"Token is present in response\", () => {",
+							"    pm.expect(jsonData).to.have.property(\"token\");",
+							"});",
+							"console.log(\"Auth Token:\", jsonData.token);",
+							"pm.environment.set(\"Ltoken\", jsonData.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"nagaraj.unique2026@example.com\",\n    \"password\": \"NagarajNaik@2025\"\n}"
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/users/login",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add_contact_05",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const res = pm.response.json();",
+							"pm.test(\"firstName should be Pavi\", () => {",
+							"    pm.expect(res.firstName).to.eql(\"Pavi\");",
+							"});",
+							"",
+							"pm.test(\"lastName should be M Naik\", () => {",
+							"    pm.expect(res.lastName).to.eql(\"M Naik\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Ltoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Pavi\",\n    \"lastName\": \"M Naik\",\n    \"birthdate\": \"1997-01-01\",\n    \"email\": \"pavi.unique@example.com\",\n    \"phone\": \"9408868899\",\n    \"street1\": \"2nd main road\",\n    \"street2\": \"Bangalore\",\n    \"city\": \"Jpnagar\",\n    \"stateProvince\": \"KA\",\n    \"postalCode\": \"560001\"\n}"
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_ContactsList_06",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check status code is 200",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Log response",
+							"let res = pm.response.json();",
+							"console.log(\"All contacts:\", res);",
+							"",
+							"",
+							"if (Array.isArray(res) && res.length > 0) {",
+							"    pm.environment.set(\"contactId\", res[0]._id);",
+							"    console.log(\"contactId set to\", res[0]._id);",
+							"} else {",
+							"    console.log(\"No contacts found.\");",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Ltoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Contact_07",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check status code is 200",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse response and validate",
+							"let res = pm.response.json();",
+							"console.log(\"Single contact:\", res);",
+							"",
+							"pm.test(\"firstName should not be empty\", () => {",
+							"    pm.expect(res.firstName).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Ltoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts",
+						"{{contactId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_Contact_08",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check status code is 200",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse and log response",
+							"let res = pm.response.json();",
+							"console.log(\"Updated contact:\", res);",
+							"",
+							"// Validate updated firstName",
+							"pm.test(\"Contact firstName is updated\", () => {",
+							"    pm.expect(res.firstName).to.eql(\"Pavi Updated\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Ltoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Pavi Updated\",\n    \"lastName\": \"M Naik\",\n    \"email\": \"pavi.unique@example.com\",\n    \"phone\": \"9998887770\"\n}"
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts",
+						"{{contactId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_C_patch_09",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check status code is 200",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Parse and log response",
+							"let res = pm.response.json();",
+							"console.log(\"Patched contact:\", res);",
+							"",
+							"// Validate partial update of firstName",
+							"pm.test(\"Contact firstName is updated with PATCH\", () => {",
+							"    pm.expect(res.firstName).to.eql(\"Pavi Patched\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Ltoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Pavi Patched\"\n}"
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts",
+						"{{contactId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout_10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check status code is 200 for successful logout",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Clear environment variables",
+							"pm.environment.unset(\"Ltoken\");",
+							"pm.environment.unset(\"contactId\");",
+							"console.log(\"Logged out, environment variables cleared.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Ltoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/users/logout",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
