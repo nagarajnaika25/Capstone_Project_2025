@@ -28,7 +28,7 @@ public class Ecommerce_Client {
     @BeforeTest
     public void BeforeTest()
     {
-    	extent = Ecommerce_Utility.setupExtentReport();
+    	extent = Ecommerce_Utility.setupExtentReport(); //From utility  
     
     	
         driver = new ChromeDriver();

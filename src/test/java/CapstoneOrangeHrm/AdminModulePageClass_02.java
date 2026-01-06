@@ -123,7 +123,7 @@ public class AdminModulePageClass_02 {
 
 		}
 
-		return text;
+		return text; //return
 	}
 
 	// ByUserName() // : 2
