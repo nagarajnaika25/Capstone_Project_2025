@@ -19,6 +19,9 @@
     <selenium.version>4.8.0</selenium.version>
     <testng.version>7.4.0</testng.version>
     <extent.reports.version>5.0.9</extent.reports.version>
+    
+   
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
   <dependencies>

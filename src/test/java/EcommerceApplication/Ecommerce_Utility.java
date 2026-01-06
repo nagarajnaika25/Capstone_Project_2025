@@ -354,11 +354,13 @@ public class Ecommerce_Utility {
 			 File destinationFile=new File(screenshotpath);
 			 destinationFile.getParentFile().mkdirs();
 			 
+			 
 			 FileHandler.copy(sourcefile, destinationFile);
 			 System.out.println("ScreenShot Saved"+screenshotpath);
 			
-			
-			
+			 
+			 
+
 		}catch(Exception e)
 		{
 			

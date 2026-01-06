@@ -171,10 +171,12 @@ public class Login_Module{
 
   
 	@AfterTest
-    public void tearDown() throws IOException {
+    public void tearDown() throws IOException 
+	{
         fis.close();
         workbook.close();
         driver.quit();
         extent.flush();
-    }
+ 
+	}
 }

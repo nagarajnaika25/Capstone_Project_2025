@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Telecom_Domain.RestassuredApiTest">
+      <class name="EcommerceApplication.Ecommerce_Client">
         <methods>
-          <include name="updateUserProfile"/>
-          <include name="setupBaseUrl"/>
-          <include name="tearDown"/>
-          <include name="addNewUser"/>
-          <include name="testGetUserProfile"/>
+          <include name="BeforeTest"/>
+          <include name="afterTest"/>
+          <include name="placeOrderBy"/>
         </methods>
-      </class> <!-- Telecom_Domain.RestassuredApiTest -->
+      </class> <!-- EcommerceApplication.Ecommerce_Client -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

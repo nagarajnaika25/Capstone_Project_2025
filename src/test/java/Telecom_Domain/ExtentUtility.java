@@ -6,9 +6,15 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 
+
 public class ExtentUtility {
+	
+	
 	private static ExtentReports extent; //  1
 	private  static  ExtentTest test;  //    2
+	
+	
+	
 	
 	
 	public static ExtentReports setupExtentReport()
